@@ -415,7 +415,7 @@ public class GitlabUrlUtility {
         if (gitlabSettings.isUseProjectId()) {
             repoName = projectIdValue;
         } else {
-            repoName = urlParts[0] + "%2F" + urlParts[1];
+            repoName = String.join("%2F", urlParts);
         }
 		return repoName;
 	}
