@@ -65,7 +65,7 @@ gitlab.path=${GITLAB_PATH:-}
 gitlab.apiToken=${GITLAB_API_TOKEN:-}
 
 #Maximum number of days to go back in time when fetching commits
-gitlab.commitThresholdDays=${GITLAB_COMMIT_THRESHOLD_DAYS:-15}
+gitlab.firstRunHistoryDays=${GITLAB_COMMIT_THRESHOLD_DAYS:-15}
 
 #Gitlab Instance using self signed certificate
 gitlab.selfSignedCertificate=${GITLAB_SELF_SIGNED_CERTIFICATE:-false}
