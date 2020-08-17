@@ -10,10 +10,10 @@ fi
 
 if [ "$TEST_SCRIPT" != "" ]
 then
-        #for testing locally
-        PROP_FILE=application.properties
+  #for testing locally
+  PROP_FILE=application.properties
 else 
-	PROP_FILE=config/hygieia-gitlab-scm-collector.properties
+  PROP_FILE=/hygieia/config/application.properties
 fi
   
 if [ "$MONGO_PORT" != "" ]; then
@@ -65,7 +65,7 @@ gitlab.path=${GITLAB_PATH:-}
 gitlab.apiToken=${GITLAB_API_TOKEN:-}
 
 #Maximum number of days to go back in time when fetching commits
-gitlab.commitThresholdDays=${GITLAB_COMMIT_THRESHOLD_DAYS:-15}
+gitlab.firstRunHistoryDays=${GITLAB_COMMIT_THRESHOLD_DAYS:-15}
 
 #Gitlab Instance using self signed certificate
 gitlab.selfSignedCertificate=${GITLAB_SELF_SIGNED_CERTIFICATE:-false}
