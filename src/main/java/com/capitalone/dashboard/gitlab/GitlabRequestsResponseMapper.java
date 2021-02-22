@@ -137,7 +137,7 @@ public class GitlabRequestsResponseMapper {
 		request.setTargetBranch(gitlabRequest.getTargetBranch());
 
 		List<Review> reviews = new ArrayList<>();
-		List<Comment> comments = getCommentsAndReviews(gitlabRequest.getWebUrl(), gitlabRequest, reviews);
+		List<Comment> comments = getCommentsAndReviews(repoUrl, gitlabRequest, reviews);
 		request.setComments(comments);
 		request.setReviews(reviews);
 		request.setCommentsUrl(gitlabRequest.getWebUrl());
