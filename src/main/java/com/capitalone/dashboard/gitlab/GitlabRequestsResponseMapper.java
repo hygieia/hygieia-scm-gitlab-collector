@@ -143,11 +143,11 @@ public class GitlabRequestsResponseMapper {
 		request.setCommentsUrl(gitlabRequest.getWebUrl());
 		request.setReviewCommentsUrl(gitlabRequest.getWebUrl());
 
-		List<Commit> commits = getCommits(gitlabRequest.getWebUrl(), gitlabRequest);
+		List<Commit> commits = getCommits(repoUrl, gitlabRequest);
 		request.setCommits(commits);
 
 		if (StringUtils.isNotBlank(gitlabRequest.getSha())) {
-			List<CommitStatus> commitStatuses = getCommitStatuses(gitlabRequest.getWebUrl(), branch,
+			List<CommitStatus> commitStatuses = getCommitStatuses(repoUrl, branch,
 					gitlabRequest.getSha());
 			request.setCommitStatuses(commitStatuses);
 		}
