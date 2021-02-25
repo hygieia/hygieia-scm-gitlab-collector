@@ -104,7 +104,7 @@ public class GitlabRequestsResponseMapper {
 			request.setMergedAt(new DateTime(merged).getMillis());
 			// get merge request changes' detail info
             URI requestChangesApiUrl = 
-                    gitlabUrlUtility.buildMergeRequestChangesApiUrl(gitlabRequest.getWebUrl(), gitlabRequest.getIid());
+                    gitlabUrlUtility.buildMergeRequestChangesApiUrl(repoUrl, gitlabRequest.getIid());
             ResponseEntity<GitlabRequestChanges> requestChangesResponse = restOperations.exchange(requestChangesApiUrl, HttpMethod.GET, 
                     new HttpEntity<>(gitlabUrlUtility.createHttpHeaders(apiToken)), GitlabRequestChanges.class);
             GitlabRequestChanges requestChanges = requestChangesResponse.getBody();
@@ -112,7 +112,7 @@ public class GitlabRequestsResponseMapper {
             request.setScmMergeEventRevisionNumber(requestChanges.getMergeCommitSha());
             // get single commit's detail info
             URI singleCommitApiUrl = 
-                    gitlabUrlUtility.buildSingleCommitApiUrl(gitlabRequest.getWebUrl(), requestChanges.getMergeCommitSha());
+                    gitlabUrlUtility.buildSingleCommitApiUrl(repoUrl, requestChanges.getMergeCommitSha());
             ResponseEntity<GitlabCommit> singleCommitResponse = restOperations.exchange(singleCommitApiUrl, HttpMethod.GET,
                     new HttpEntity<>(gitlabUrlUtility.createHttpHeaders(apiToken)), GitlabCommit.class);
             GitlabCommit singleCommit = singleCommitResponse.getBody();
@@ -137,17 +137,17 @@ public class GitlabRequestsResponseMapper {
 		request.setTargetBranch(gitlabRequest.getTargetBranch());
 
 		List<Review> reviews = new ArrayList<>();
-		List<Comment> comments = getCommentsAndReviews(gitlabRequest.getWebUrl(), gitlabRequest, reviews);
+		List<Comment> comments = getCommentsAndReviews(repoUrl, gitlabRequest, reviews);
 		request.setComments(comments);
 		request.setReviews(reviews);
 		request.setCommentsUrl(gitlabRequest.getWebUrl());
 		request.setReviewCommentsUrl(gitlabRequest.getWebUrl());
 
-		List<Commit> commits = getCommits(gitlabRequest.getWebUrl(), gitlabRequest);
+		List<Commit> commits = getCommits(repoUrl, gitlabRequest);
 		request.setCommits(commits);
 
 		if (StringUtils.isNotBlank(gitlabRequest.getSha())) {
-			List<CommitStatus> commitStatuses = getCommitStatuses(gitlabRequest.getWebUrl(), branch,
+			List<CommitStatus> commitStatuses = getCommitStatuses(repoUrl, branch,
 					gitlabRequest.getSha());
 			request.setCommitStatuses(commitStatuses);
 		}
